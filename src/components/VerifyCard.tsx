@@ -17,6 +17,7 @@ import { useToast } from "./ui/use-toast";
 import { CERT_FOUND, NO_CERT_FOUND } from "@/lib/messages";
 import { useSetRecoilState } from "recoil";
 import { certAtom } from "@/store/atoms/cert";
+import { LoaderCircle } from "lucide-react";
 
 export const VerifyCard = () => {
 
@@ -110,7 +111,12 @@ export const VerifyCard = () => {
                 </div>
             </CardContent>
             <CardFooter>
-                <Button disabled={loading} onClick={handleSubmit} className="w-full">Verify</Button>
+                <Button disabled={loading} onClick={handleSubmit} className="w-full">
+                    {loading && (
+                            <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    Verify
+                </Button>
             </CardFooter>
         </Card>
     )
