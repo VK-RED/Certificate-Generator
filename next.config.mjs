@@ -6,6 +6,16 @@ const nextConfig = {
         return config;
     },
     reactStrictMode:false,
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'avatars.githubusercontent.com',
+            port: '',
+            pathname: '/u/130341088**',
+          },
+        ],
+      },
 };
 
 export default nextConfig;
