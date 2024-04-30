@@ -10,13 +10,21 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export const CertificateRenderer = ({pdfDataUri}:CertificateRendererProps) => {
     return (
-        <Document file={{url:pdfDataUri}}  
+        <div className='z-10'>
+            <Document file={{url:pdfDataUri}}  
                 onLoadSuccess={()=>{
                 console.log("document loaded successfully !")
                 }}
                 renderMode="canvas"
-        >
-            <Page pageNumber={1}  renderAnnotationLayer={false} renderTextLayer={false}/>
-        </Document>
+            >
+                <Page pageNumber={1}  
+                    renderAnnotationLayer={false} 
+                    renderTextLayer={false}
+                    height={600}
+                    width={600}
+                />
+            </Document>
+        </div>
+        
     )
 }

@@ -9,7 +9,7 @@ import { VerifyCard } from "./VerifyCard"
 
 export const ToggleTab = () => {
     return (
-        <Tabs defaultValue="create" className="w-[400px] z-10 mt-10">
+        <Tabs defaultValue="create" className="w-[400px] z-10">
 
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="create">Create</TabsTrigger>
