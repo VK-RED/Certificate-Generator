@@ -15,3 +15,10 @@ export const CreateCert = z.object({
 })
 
 export type CreateCertProps = z.infer<typeof CreateCert>;
+
+export const VerifyCert = z.object({
+    certId: z.string().nullable(),
+    userEmail: z.string().nullable()
+})
+
+export type VerifyCertProps = z.infer<typeof VerifyCert>;
