@@ -38,7 +38,7 @@ export const BioDataCard = () =>{
             return;
         }
         
-        const certDetails = await createCert({email,name:name.toLowerCase()});
+        const certDetails = await createCert({email,name});
         setLoading(false);
 
         if(certDetails.name && certDetails.certificateId){
