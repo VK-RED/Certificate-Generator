@@ -1,5 +1,6 @@
 'use server';
 
+import { CERT_CREATED, CERT_FOUND, SOMETHING_WENT_WRONG } from "@/lib/messages";
 import { db } from "@/lib/prisma";
 import { CreateCert, CreateCertProps } from "@/lib/types";
 import { ZodError, z } from "zod";
@@ -17,7 +18,7 @@ export const createCert = async (cert:CreateCertProps) => {
         })
 
         if(existingCert){
-            return {name:existingCert.userName, certificateId:existingCert.id};
+            return {name:existingCert.userName, certificateId:existingCert.id, message:CERT_FOUND};
         }
 
         const newCert = await db.certificate.create({
@@ -27,19 +28,19 @@ export const createCert = async (cert:CreateCertProps) => {
             }
         })
 
-        return {name:newCert.userName, certificateId:newCert.id};
+        return {name:newCert.userName, certificateId:newCert.id, message:CERT_CREATED};
 
     } catch (error) {
-        
-        let err = "Something Went Wrong !! Please Contact Admin !"
+        let err = SOMETHING_WENT_WRONG;
         if (error instanceof ZodError){
             console.log(error.message);
-            err = `${error.issues[0].message}, Enter Valid ${error.issues[0].path}`;
-            throw new Error(err);
+            err = `${error.issues[0].message}`;
+            
         }
         else{
             console.log(error);
             throw new Error(err);
         }
+        return {message:err};
     }
 }
