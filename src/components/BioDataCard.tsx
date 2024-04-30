@@ -15,6 +15,8 @@ import { useState } from "react"
 import { createCert } from "@/actions/createCert"
 import { useToast } from "./ui/use-toast"
 import { CERT_CREATED, CERT_FOUND } from "@/lib/messages"
+import { useSetRecoilState } from "recoil";
+import { certAtom } from "@/store/atoms/cert";
   
 
 export const BioDataCard = () =>{
@@ -22,7 +24,8 @@ export const BioDataCard = () =>{
     const [email,setEmail] = useState("");
     const [loading, setLoading] = useState(false);
     const {toast} = useToast();
-
+    const setCertState = useSetRecoilState(certAtom);
+    
     const handleSubmit = async () => {
         setLoading(true);
 
@@ -37,6 +40,10 @@ export const BioDataCard = () =>{
         
         const certDetails = await createCert({email,name:name.toLowerCase()});
         setLoading(false);
+
+        if(certDetails.name && certDetails.certificateId){
+            setCertState({id:certDetails.certificateId,name:certDetails.name});
+        }
 
         if(certDetails.message == CERT_CREATED ||certDetails.message == CERT_FOUND){
             toast({title:certDetails.message});

@@ -15,6 +15,8 @@ import { useState } from "react"
 import { verifyCert } from "@/actions/verify";
 import { useToast } from "./ui/use-toast";
 import { CERT_FOUND, NO_CERT_FOUND } from "@/lib/messages";
+import { useSetRecoilState } from "recoil";
+import { certAtom } from "@/store/atoms/cert";
 
 export const VerifyCard = () => {
 
@@ -22,6 +24,7 @@ export const VerifyCard = () => {
     const [email, setEmail] = useState("");
     const [loading,setLoading] = useState(false);
     const {toast} = useToast();
+    const setCertState = useSetRecoilState(certAtom);
 
     function isValidEmail():(boolean) {
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -50,6 +53,10 @@ export const VerifyCard = () => {
 
         const certDetails = await verifyCert({certId:certId,userEmail:email});
         console.log(certDetails);
+
+        if(certDetails.name && certDetails.certificateId){
+            setCertState({id:certDetails.certificateId,name:certDetails.name});
+        }
 
         if(certDetails.message){
             if(certDetails.message === NO_CERT_FOUND ||certDetails.message ===  CERT_FOUND){
