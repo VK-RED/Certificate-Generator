@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster"
-import { RecoilRoot} from "recoil"
+import { Providers } from "@/components/providers";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,18 +19,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
         <head />
         <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <RecoilRoot>
+           <Providers>
               {children}
-              <Toaster />
-            </RecoilRoot>
-            
-          </ThemeProvider>
+           </Providers>
         </body>
       </html>
   );
