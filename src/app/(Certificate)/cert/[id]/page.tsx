@@ -1,6 +1,7 @@
 'use client';
 
 import { verifyCert } from "@/actions/verify";
+import { CertificateSkeleton } from "@/components/CertificateSkeleton";
 import { useToast } from "@/components/ui/use-toast";
 import { CERT_FOUND, NO_CERT_FOUND } from "@/lib/messages";
 import { certAtom } from "@/store/atoms/cert";
@@ -41,6 +42,11 @@ export default function CertificatePage(){
     }
 
     return(
-        <></>
+        <div className="flex flex-col justify-center items-center h-screen w-screen">
+            <CertificateSkeleton/>
+            <h2 className="scroll-m-20 mt-10 pb-2 text-2xl font-semibold tracking-tight first:mt-0 text-indigo-900 animate-pulse">
+                {`Getting your Certificate !`}
+            </h2>
+        </div>
     )
 }
