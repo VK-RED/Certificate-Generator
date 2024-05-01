@@ -42,11 +42,13 @@ export const BioDataCard = () =>{
         setLoading(false);
 
         if(certDetails.name && certDetails.certificateId){
-            setCertState(p => ({...p, id:certDetails.certificateId,name:certDetails.name}));
+            setCertState(p => ({...p,pdfDataUri:"", id:certDetails.certificateId,name:certDetails.name}));
         }
 
         if(certDetails.message == CERT_CREATED ||certDetails.message == CERT_FOUND){
-            toast({title:certDetails.message});
+            if(certDetails.message === CERT_CREATED){
+                toast({title:certDetails.message});
+            }
             setEmail("");
             setName("");
         }
