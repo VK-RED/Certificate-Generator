@@ -24,3 +24,7 @@ export const VerifyCert = z.object({
 export type VerifyCertProps = z.infer<typeof VerifyCert>;
 
 export type IconProps = React.HTMLAttributes<SVGElement>
+
+export interface DivProps {
+    className? : string
+}
