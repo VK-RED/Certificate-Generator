@@ -4,6 +4,7 @@ export const certAtom = atom({
     key:'certificateAtom',
     default:{
         id:"",
-        name:""
+        name:"",
+        pdfDataUri:""
     }
 })
