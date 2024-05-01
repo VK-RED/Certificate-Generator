@@ -56,7 +56,7 @@ export const VerifyCard = () => {
         console.log(certDetails);
 
         if(certDetails.name && certDetails.certificateId){
-            setCertState({id:certDetails.certificateId,name:certDetails.name});
+            setCertState(p => ({...p, id:certDetails.certificateId,name:certDetails.name}));
         }
 
         if(certDetails.message){

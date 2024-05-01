@@ -42,7 +42,7 @@ export const BioDataCard = () =>{
         setLoading(false);
 
         if(certDetails.name && certDetails.certificateId){
-            setCertState({id:certDetails.certificateId,name:certDetails.name});
+            setCertState(p => ({...p, id:certDetails.certificateId,name:certDetails.name}));
         }
 
         if(certDetails.message == CERT_CREATED ||certDetails.message == CERT_FOUND){
