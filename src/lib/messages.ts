@@ -1,4 +1,4 @@
-export const NO_CERT_FOUND = "No Certificate found !! Kindly create one !";
+export const NO_CERT_FOUND = "Sorry can't find your certificate !! Kindly create a new one !";
 export const SOMETHING_WENT_WRONG = "Something Went Wrong !! Please Contact admin";
 export const CERTID_OR_EMAIL = "Enter Certificate ID or Email !";
 export const CERT_FOUND = "Certificate found for this Email !";
