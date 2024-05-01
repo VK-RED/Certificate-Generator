@@ -2,16 +2,17 @@
 
 import { certSelector } from "@/store/selectors/cert";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CertificateRenderer } from "./CertificateRender";
 import { generateCert } from "@/actions/cert";
+import { certAtom } from "@/store/atoms/cert";
 
 export const CertRendererClient = () => {
     const cert = useRecoilValue(certSelector);
-    const[pdfDataUri,setPdfDataUri] = useState("");
+    const setCert = useSetRecoilState(certAtom);
 
     useEffect(()=>{
-        if(cert.id && cert.name){
+        if(!cert.pdfDataUri){
             getCertificate();
         }
     },[cert])
@@ -21,18 +22,12 @@ export const CertRendererClient = () => {
             return;
         }
         const data = await generateCert({userName:cert.name, certificateId:cert.id});
-        setPdfDataUri((p)=>data.pdfUri);
+        setCert(p=>({...p,pdfDataUri:data.pdfUri}));
         console.log("Cert from store is ", cert);
     }
     
-    if(pdfDataUri){
-        return (
-            <CertificateRenderer pdfDataUri={pdfDataUri} />
-        )
-    }
-    else{
-        return null;
-    }
-
+    return (
+        <CertificateRenderer />
+    )
     
 }
