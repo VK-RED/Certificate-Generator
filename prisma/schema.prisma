@@ -19,3 +19,8 @@ model Certificate{
   userName String 
 }
 
+model Template{
+  id Int @id @default(0)
+  cert Bytes
+}
+
