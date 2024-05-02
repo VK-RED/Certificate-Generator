@@ -1,16 +1,18 @@
 "use server";
 
+import { NO_TEMPLATE_FOUND } from "@/lib/messages";
+import { db } from "@/lib/prisma";
 import { GenerateCertProps } from "@/lib/types";
-import fs from "fs";
-import path from "path";
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 export async function generateCert({userName,certificateId}:GenerateCertProps) {
     
-    const filePath = path.join(__dirname,"../../../public/assets/Certificate_Template.pdf");
+    const pdfTemplate = await db.template.findUnique({where:{id:0}});
     
-    const pdfTemplate = fs.readFileSync(filePath);
-    const pdfDoc = await PDFDocument.load(pdfTemplate);
+    if(!pdfTemplate || !pdfTemplate.cert){
+        return {message:NO_TEMPLATE_FOUND}
+    }
+    const pdfDoc = await PDFDocument.load(pdfTemplate.cert);
 
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic)
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
